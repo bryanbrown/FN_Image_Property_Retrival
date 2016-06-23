@@ -13,11 +13,6 @@ namespace FN_Image_Property_Retrival
 {
     class FN_GetFile
     {
-        private string _path;
-        public FN_GetFile(string path)
-        {
-            _path = path;
-        }
         public void getFile(IObjectStore os, Id id, string path, string fileName)
         {
             IDocument doc = Factory.Document.FetchInstance(os, id, null);

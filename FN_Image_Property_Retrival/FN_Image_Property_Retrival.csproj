@@ -44,6 +44,7 @@
     <Reference Include="System" />
     <Reference Include="System.configuration" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Data.OracleClient" />
     <Reference Include="System.IO.Compression.FileSystem" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -53,12 +54,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Check_If_Dir_Exists.cs" />
+    <Compile Include="Check_If_File_Exists.cs" />
     <Compile Include="DocID_List.cs" />
     <Compile Include="FileArchive.cs" />
+    <Compile Include="File_Copy_To_Share.cs" />
     <Compile Include="FN_Connection.cs" />
     <Compile Include="FN_DocQry.cs" />
     <Compile Include="FN_GetFile.cs" />
+    <Compile Include="GetDME.cs" />
+    <Compile Include="Logging.cs" />
     <Compile Include="MakeDir.cs" />
+    <Compile Include="OracleDB.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RO_DocID.cs" />
