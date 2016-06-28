@@ -13,15 +13,15 @@ namespace FN_Image_Property_Retrival
 {
     class FN_GetFile
     {
-        public void getFile(IObjectStore os, Id id, string path, string fileName)
+        public string getFile(IObjectStore os, Id id, string path, string fileName)
         {
             IDocument doc = Factory.Document.FetchInstance(os, id, null);
-
             IContentElementList elemList = doc.ContentElements;
+            string extension = null;
 
-            foreach(IContentTransfer  ic in elemList)
+            foreach (IContentTransfer  ic in elemList)
             {
-                string extension = ic.RetrievalName;
+                extension = ic.RetrievalName;
 
                 try
                 {
@@ -38,7 +38,10 @@ namespace FN_Image_Property_Retrival
 
                 if (size != ic.ContentSize)
                     throw new IOException("Invalid content size retrieved for: " + fileName);
-            }            
+                 
+            }
+
+            return path + "\\" + fileName + extension;
         }
 
         public double writeContent(Stream stream, string fileName)

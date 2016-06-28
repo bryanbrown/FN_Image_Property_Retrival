@@ -56,12 +56,14 @@
   <ItemGroup>
     <Compile Include="Check_If_Dir_Exists.cs" />
     <Compile Include="Check_If_File_Exists.cs" />
+    <Compile Include="DeleteFilesInDir.cs" />
     <Compile Include="DocID_List.cs" />
     <Compile Include="FileArchive.cs" />
     <Compile Include="File_Copy_To_Share.cs" />
     <Compile Include="FN_Connection.cs" />
     <Compile Include="FN_DocQry.cs" />
     <Compile Include="FN_GetFile.cs" />
+    <Compile Include="FTP.cs" />
     <Compile Include="GetDME.cs" />
     <Compile Include="Logging.cs" />
     <Compile Include="MakeDir.cs" />

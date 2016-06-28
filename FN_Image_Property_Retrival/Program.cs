@@ -12,6 +12,7 @@ using FileNet.Api.Util;
 using System.Configuration;
 using OracleDatabase;
 using System.Data.OracleClient;
+using System.IO;
 
 namespace FN_Image_Property_Retrival
 {
@@ -21,14 +22,19 @@ namespace FN_Image_Property_Retrival
         {
             OracleDB db = new OracleDB();
             OracleDataReader odr = db.selectReader("select RO, DOC_ID, CONTRACT_TYPE FROM GENESIS.DME_REPORT WHERE LINE_TYPE = \'DOC\' ORDER BY RO");
-            Check_If_File_Exists cie = new Check_If_File_Exists();
+            //Check_If_File_Exists cie = new Check_If_File_Exists();
+            FTP ftp = new FTP();
+            DeleteFilesInDir dfd = new DeleteFilesInDir();
+
+
             bool fileExists = false;
 
             FN_Connection fnConn = new FN_Connection();
             FN_DocQry fnDocQry = new FN_DocQry();
             FN_GetFile fnFile = new FN_GetFile();
             MakeDir md = new MakeDir();
-            Check_If_Dir_Exists cid = new Check_If_Dir_Exists();
+            string workDir = ConfigurationManager.AppSettings["workingDir"];
+            //Check_If_Dir_Exists cid = new Check_If_Dir_Exists();
 
             while (odr.Read())
             {
@@ -36,49 +42,38 @@ namespace FN_Image_Property_Retrival
                 string docID = odr.GetInt32(1).ToString();
                 string contractType = odr.GetString(2);
 
-                string sharePath = GetDME.getSharePath(contractType);
-                fileExists = cie.exists(ro, docID, sharePath);
+                //string sharePath = GetDME.getSharePath(contractType);
+                fileExists = ftp.fileExists(ro, docID);
 
                 if (fileExists)
                     continue;
 
-                cid.exists(sharePath + "\\" + ro); //check if dir exists, if not create it
+                ftp.CreateFTPDirectory(ro);
+                //cid.exists(sharePath + "\\" + ro); //check if dir exists, if not create it
 
                 IRepositoryRowSet rowSet = fnDocQry.getRowSet(fnConn._os, "SELECT Id from [Orderdocs] WHERE (IsCurrentVersion = True) AND ROE =" + ro + " AND DocID =" + docID);
 
                 foreach (IRepositoryRow row in rowSet)
                 {
+                    string filePath;
+
                     IProperties prop = row.Properties;
 
                     Id id = new Id(prop.GetObjectValue("Id").ToString());
 
-                    fnFile.getFile(fnConn._os, id, sharePath + "\\" + ro, docID);
+                    filePath = fnFile.getFile(fnConn._os, id, workDir, docID);
+
+                    ftp.uploadFile(filePath, ro);
+
+                    dfd.deleteAll(workDir);
                 }
 
-            }
-
-            //string path = ConfigurationManager.AppSettings["workingDir"].ToString();
-            //string delimeter = ConfigurationManager.AppSettings["delimeter"];
-
-            //ScanDir sd = new ScanDir();
-            //string fileName = sd.getOldestFile(path);
-
-            //DocID_List dl = new DocID_List(fileName, delimeter[0]);
-
-            
-
-           // foreach (var di in dl._docID_List)
-            //{
-            //    string roDir = md.CreateDir(path + "\\" + di._RO);
-
-                
-            //}
-
-            //ZipFiles zf = new ZipFiles();
-            //zf.zipDirectory(path, "c:\\temp\\dme.zip");
+            }            
         }
     }
 }
+
+//add catch for get dme for any missing config entries
 
 
 //check for docid files by ro folder in appropriate share
