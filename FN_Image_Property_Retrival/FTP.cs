@@ -31,12 +31,15 @@ namespace FN_Image_Property_Retrival
 
         public bool fileExists(string fileName, string dir)
         {
-            string uri = "ftp://" + _ftpServerIP + "/" + dir + "/" + fileName + ".tif";
+            string uri = "ftp://" + _ftpServerIP + "/images/" + dir + "/" + fileName + ".tif";
             var request = (FtpWebRequest)WebRequest.Create(uri);
             bool retVal = true;
+            request.EnableSsl = true;
+            request.UseBinary = true;          
 
             request.Credentials = new NetworkCredential(_ftpUserID, _ftpPassword);
             request.Method = WebRequestMethods.Ftp.GetDateTimestamp;
+            ServicePointManager.ServerCertificateValidationCallback = new System.Net.Security.RemoteCertificateValidationCallback(AcceptAllCertifications);
 
             try
             {
@@ -58,23 +61,20 @@ namespace FN_Image_Property_Retrival
         public bool uploadFile(string fileName, string ro)
         {
             FileInfo fi = new FileInfo(fileName);
-            string uri = "ftp://" + _ftpServerIP + "/" + "images" + "/" + ro + "/" + fi.Name;
+            string uri = "ftp://" + _ftpServerIP + "/images/" + "/" + ro + "/" + fi.Name;
             FtpWebRequest ftpReq;
 
             ftpReq = (FtpWebRequest)FtpWebRequest.Create(uri);
             ftpReq.EnableSsl = true;
             ftpReq.Credentials = new NetworkCredential(_ftpUserID, _ftpPassword);
-            //ftpReq.KeepAlive = false;
             ftpReq.Method = WebRequestMethods.Ftp.UploadFile;
-            //ftpReq.UseBinary = true;
             ftpReq.ContentLength = fi.Length;
 
             int buffLen = 2048;
             byte[] buff = new byte[buffLen];
             int contentLen = 0;
 
-            //ServicePointManager.ServerCertificateValidationCallback = new System.Net.Security.RemoteCertificateValidationCallback(AcceptAllCertifications);
-
+            
             FileStream fs = fi.OpenRead();
 
             try

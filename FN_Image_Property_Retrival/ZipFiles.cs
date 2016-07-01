@@ -12,7 +12,7 @@ namespace FN_Image_Property_Retrival
     {
         public void zipDirectory(string path, string fileName)
         {
-            ZipFile.CreateFromDirectory(path, fileName);
+            //ZipFile.CreateFromDirectory(path, fileName);
         }
     }
 }

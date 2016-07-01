@@ -1,0 +1,8 @@
+C:\Users\k34686\Documents\Visual Studio 2015\Projects\FN_Image_Property_Retrival\FN_Image_Property_Retrival\bin\Release\FN_Image_Property_Retrival.exe.config
+C:\Users\k34686\Documents\Visual Studio 2015\Projects\FN_Image_Property_Retrival\FN_Image_Property_Retrival\bin\Release\FN_Image_Property_Retrival.exe
+C:\Users\k34686\Documents\Visual Studio 2015\Projects\FN_Image_Property_Retrival\FN_Image_Property_Retrival\bin\Release\FN_Image_Property_Retrival.pdb
+C:\Users\k34686\Documents\Visual Studio 2015\Projects\FN_Image_Property_Retrival\FN_Image_Property_Retrival\bin\Release\FileNet.Api.dll
+C:\Users\k34686\Documents\Visual Studio 2015\Projects\FN_Image_Property_Retrival\FN_Image_Property_Retrival\bin\Release\Microsoft.Web.Services3.dll
+C:\Users\k34686\Documents\Visual Studio 2015\Projects\FN_Image_Property_Retrival\FN_Image_Property_Retrival\obj\Release\FN_Image_Property_Retrival.csprojResolveAssemblyReference.cache
+C:\Users\k34686\Documents\Visual Studio 2015\Projects\FN_Image_Property_Retrival\FN_Image_Property_Retrival\obj\Release\FN_Image_Property_Retrival.exe
+C:\Users\k34686\Documents\Visual Studio 2015\Projects\FN_Image_Property_Retrival\FN_Image_Property_Retrival\obj\Release\FN_Image_Property_Retrival.pdb
